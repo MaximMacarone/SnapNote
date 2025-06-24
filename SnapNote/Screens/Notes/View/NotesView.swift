@@ -12,7 +12,11 @@ struct NotesView: View {
     @StateObject var viewModel: NotesViewModel
     
     var body: some View {
-        Text("Notes screen")
+        ScrollView {
+            Text("Notes screen")
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(uiColor: UIColor.Background.main))
     }
 }
 

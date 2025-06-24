@@ -9,7 +9,6 @@ import UIKit
 import SwiftUI
 
 protocol SearchNavDelegate: AnyObject {
-    func onSearchBackTapped()
     
     func onSearchMoveTapped()
 }
@@ -26,10 +25,6 @@ extension SearchView {
 
 
 extension SearchView.SearchViewModel {
-    
-    func onBackTapped() {
-        navDelegate?.onSearchBackTapped()
-    }
     
     func onMoveTapped() {
         navDelegate?.onSearchMoveTapped()

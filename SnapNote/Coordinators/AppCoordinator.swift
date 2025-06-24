@@ -19,6 +19,11 @@ class AppCoordinator: BaseCoordinator<UINavigationController> {
         
         super.init(presenter: presenter)
         
+        self.window.overrideUserInterfaceStyle = .dark
+        
+        UINavigationBar.setAppearance()
+        UITabBar.setAppearance()
+        
         self.window.rootViewController = presenter
         self.window.makeKeyAndVisible()
     }
@@ -65,6 +70,7 @@ extension AppCoordinator: AuthCoordinatorDelegate {
 extension AppCoordinator: MainCoordinatorDelegate {
     
     func onMainCoordinatorCompleted(coordinatorID: UUID) {
+        
         startAuth()
         
         self.free(coordinatorID: coordinatorID)

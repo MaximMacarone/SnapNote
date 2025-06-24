@@ -19,7 +19,7 @@ class AuthCoordinator: BaseCoordinator<UINavigationController> {
         
         showAuthScreen()
         
-        presenter.setNavigationBarHidden(false, animated: true)
+        presenter.setNavigationBarHidden(true, animated: true)
     }
     
     deinit {
@@ -36,8 +36,6 @@ private extension AuthCoordinator {
         authViewModel.navDelegate = self
         
         let authHostingController = HostingController(rootView: authView, viewModel: authViewModel)
-        
-        authHostingController.title = "SnapNote Authentication"
         
         presenter.setViewControllers([authHostingController], animated: true)
     }

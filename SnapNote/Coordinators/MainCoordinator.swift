@@ -46,7 +46,7 @@ private extension MainCoordinator {
             aboutCoordinator.presenter
         ]
         
-        let tabBarController = UITabBarController()
+        let tabBarController = TabBarController()
         tabBarController.setViewControllers(controllers, animated: false)
         
         presenter.setViewControllers([tabBarController], animated: true)
@@ -60,16 +60,16 @@ private extension MainCoordinator {
         let flowPresenter = UINavigationController()
         
         flowPresenter.tabBarItem = UITabBarItem(
-            tabBarSystemItem: .bookmarks,
-            tag: TabBarNavigationState.notes.rawValue
-        )
+            title: "Notes",
+            image: UIImage(systemName: "note.text"),
+            tag: TabBarNavigationState.notes.rawValue)
         
-        let homeCoordinator = NotesCoordinator(presenter: flowPresenter)
-        homeCoordinator.start()
+        let notesCoordinator = NotesCoordinator(presenter: flowPresenter)
+        notesCoordinator.start()
         
-        self.store(coordinator: homeCoordinator)
+        self.store(coordinator: notesCoordinator)
         
-        return homeCoordinator
+        return notesCoordinator
         
     }
     
@@ -77,9 +77,9 @@ private extension MainCoordinator {
         let flowPresenter = UINavigationController()
         
         flowPresenter.tabBarItem = UITabBarItem(
-            tabBarSystemItem: .more,
-            tag: TabBarNavigationState.about.rawValue
-        )
+            title: "About",
+            image: UIImage(systemName: "info.circle"),
+            tag: TabBarNavigationState.about.rawValue)
         
         let aboutCoordinator = AboutCoordinator(presenter: flowPresenter)
         aboutCoordinator.delegate = self
@@ -96,6 +96,5 @@ extension MainCoordinator: AboutCoordinatorDelegate {
     func onAboutCoordinatorDidFinish(coordinatorID: UUID) {
         delegate?.onMainCoordinatorCompleted(coordinatorID: self.id)
     }
-    
     
 }

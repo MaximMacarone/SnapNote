@@ -26,11 +26,9 @@ extension NotesCoordinator {
         let notesViewModel = NotesView.NotesViewModel()
         let notesView = NotesView(viewModel: notesViewModel)
         
-        notesViewModel.controllerDismissDelegate = self
-        
         let notesViewController = NotesHostingController(rootView: notesView, viewModel: notesViewModel)
         
-        notesViewController.notesDelegate = self
+        notesViewController.delegate = self
 
         presenter.pushViewController(notesViewController, animated: true)
     }
@@ -45,28 +43,15 @@ extension NotesCoordinator: SearchCoordinatorDelegate {
     
 }
 
-extension NotesCoordinator: ControllerDismissDelegate {
-    func backButtonTapped() {
-        
-    }
-    
-    func viewDidDissmiss() {
-        
-    }
-    
-    
-}
-
 extension NotesCoordinator: NotesControllerDelegate {
+    
     func showSearchScreen() {
-        let searchPresenter = UINavigationController()
         
-        let searchCoordinator = SearchCoordinator(presenter: searchPresenter)
+        let searchCoordinator = SearchCoordinator(presenter: presenter)
         
-        searchPresenter.presentationController?.delegate = self
+        searchCoordinator.delegate = self
         
         searchCoordinator.start()
-        presenter.present(searchPresenter, animated: true)
         
         self.store(coordinator: searchCoordinator)
     }
@@ -75,18 +60,6 @@ extension NotesCoordinator: NotesControllerDelegate {
         showNewSnap()
     }
     
-    
 }
 
-extension NotesCoordinator: NewSnapCoordinating {
-    
-}
-
-extension NotesCoordinator: UIAdaptivePresentationControllerDelegate {
-    
-    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
-        
-        self.freeAllChildCoordinators()
-        
-    }
-}
+extension NotesCoordinator: NewSnapCoordinating {}

@@ -31,59 +31,35 @@ private extension SearchCoordinator {
         let searchView = SearchView(viewModel: searchViewModel)
         
         searchViewModel.navDelegate = self
-        searchViewModel.controllerDismissDelegate = self
         
         let searchViewController = HostingController(rootView: searchView, viewModel: searchViewModel)
-        
+        searchViewController.backButtonDelegate = self
+
         searchViewController.title = "Search"
         
-
         presenter.pushViewController(searchViewController, animated: true)
-    }
-    
-    @objc
-    func didTapBackButton() {
-        
     }
 }
 
 extension SearchCoordinator: SearchNavDelegate {
-    func onSearchBackTapped() {
-        
-    }
     
     func onSearchMoveTapped() {
         
-        let homePresenter = UINavigationController()
-        let homeCoordinator = NotesCoordinator(presenter: homePresenter)
+        let notesPresenter = UINavigationController()
         
-        homePresenter.presentationController?.delegate = self
+        let notesCoordinator = NotesCoordinator(presenter: notesPresenter)
+        notesCoordinator.start()
         
-        homeCoordinator.start()
+        presenter.present(notesPresenter, animated: true)
         
-        presenter.present(homePresenter, animated: true)
-        
-        self.store(coordinator: homeCoordinator)
+        self.store(coordinator: notesCoordinator)
     }
-    
     
 }
 
-extension SearchCoordinator: ControllerDismissDelegate {
+extension SearchCoordinator: BackButtonDelegate {
     func backButtonTapped() {
         delegate?.onSearchCoordinatorFinished(coordinatorID: self.id)
     }
     
-    func viewDidDissmiss() {
-        delegate?.onSearchCoordinatorFinished(coordinatorID: self.id)
-    }
-}
-
-extension SearchCoordinator: UIAdaptivePresentationControllerDelegate {
-    
-    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
-        
-        self.freeAllChildCoordinators()
-        
-    }
 }

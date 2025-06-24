@@ -9,6 +9,9 @@ import UIKit
 
 extension UIViewController {
     
+    
+    /// Replace system "Back" button with a custom, with custom action logic.
+    /// Suitable for pushed views
     func setBackButtonAction(target: Any?, selector: Selector) {
         
         navigationItem.hidesBackButton = true
@@ -21,6 +24,8 @@ extension UIViewController {
         
     }
     
+    /// Replace system "Back" button with a right-side "X" button, with custom action logic.
+    /// Suitable for presented views
     func setDismissButtonAction(target: Any?, selector: Selector) {
         
         navigationItem.hidesBackButton = true

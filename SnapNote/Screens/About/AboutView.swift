@@ -17,6 +17,8 @@ struct AboutView: View {
                 viewModel.onLogOutTapped()
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(uiColor: UIColor.Background.main))
         //.navigationBarBackButtonHidden()
     }
 }

@@ -8,6 +8,9 @@
 import UIKit
 
 class BaseViewModel {
+    
     weak var hostingController: UIViewController?
+    
+    ///Delegate for implementing dismiss logic
     weak var controllerDismissDelegate: ControllerDismissDelegate?
 }

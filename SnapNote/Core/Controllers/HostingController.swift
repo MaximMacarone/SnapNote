@@ -8,16 +8,15 @@
 import UIKit
 import SwiftUI
 
-class HostingController<Content: View, ViewModel: BaseViewModel>: UIHostingController<Content>, UIAdaptivePresentationControllerDelegate {
+class HostingController<Content: View, ViewModel: BaseViewModel>: UIHostingController<Content> {
     
     var viewModel: ViewModel
+    weak var backButtonDelegate: BackButtonDelegate?
     
     init(rootView: Content, viewModel: ViewModel) {
         self.viewModel = viewModel
         super.init(rootView: rootView)
         viewModel.hostingController = self
-        
-        presentationController?.delegate = self
 
     }
     
@@ -31,18 +30,9 @@ class HostingController<Content: View, ViewModel: BaseViewModel>: UIHostingContr
         super.viewDidDisappear(animated)
         
         if self.isMovingFromParent {
-            self.viewModel.controllerDismissDelegate?.backButtonTapped()
+            self.backButtonDelegate?.backButtonTapped()
         }
-        
-        if self.isMovingToParent {
-            print("moving to  parent")
-        }
-    }
-    
-    //MARK: - UIAdaptivePresentationControllerDelegate
-    
-    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
-        self.viewModel.controllerDismissDelegate?.backButtonTapped()
+
     }
     
 }

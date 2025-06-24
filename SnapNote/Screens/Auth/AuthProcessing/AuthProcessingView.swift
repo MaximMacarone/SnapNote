@@ -19,6 +19,8 @@ struct AuthProcessingView: View {
             }
         }
         .navigationBarBackButtonHidden()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(uiColor: UIColor.Background.main))
 //        .alert(viewModel.alertTitle, isPresented: $viewModel.showAlert) {
 //            Button("OK") {}
 //        }

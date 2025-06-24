@@ -15,7 +15,7 @@ protocol NotesControllerDelegate: AnyObject {
 
 class NotesHostingController: HostingController<NotesView, NotesView.NotesViewModel> {
     
-    weak var notesDelegate: NotesControllerDelegate?
+    weak var delegate: NotesControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +31,7 @@ private extension NotesHostingController {
     
     func setup() {
         
-        title = "SnapNote"
+        navigationItem.title = "SnapNote"
         
         let searchBarButton = UIBarButtonItem(systemItem: .search)
         searchBarButton.target = self
@@ -45,16 +45,16 @@ private extension NotesHostingController {
         
     }
     
-    //MARK: - UIButton actions
+    //MARK: - BarButton actions
     
     @objc
     func handleSearchButtonTapped() {
-        notesDelegate?.showSearchScreen()
+        delegate?.showSearchScreen()
     }
     
     @objc
     func handleNewSnapButtonTapped() {
-        notesDelegate?.showNewSnapScreen()
+        delegate?.showNewSnapScreen()
     }
     
 }
